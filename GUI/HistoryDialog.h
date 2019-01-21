@@ -1,6 +1,6 @@
 #pragma once
 #include <QDialog>
-#include "ui_show_history.h"
+#include "C:\Users\cky\Documents\QtProjects\untitled1\GeneratedFiles\ui_show_history.h"
 
 class HistoryDialog : public QDialog {
   Q_OBJECT
