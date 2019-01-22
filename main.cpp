@@ -6,9 +6,9 @@ using namespace std;
 
 int main() {
   Question question;
-  question.Generate(10);
+  question.GenerateAndSave(10);
   for (int i = 0; i < 10; i++) {
-  
+    cout << question.GetQuestion(i) << endl;
+    cout << question.Calculate(i).ToString() << endl;
   }
-  system("pause");
 }
