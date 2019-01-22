@@ -9,17 +9,17 @@ using namespace std;
 //----------------------------------------------------
 
 //
-//°üº¬Ç¶Ì×ÀàQuestionGeneratorºÍQuestionCalculator
-//ÓÃÀ´ÉèÖÃ²ÎÊı¡¢Éú³ÉÖ¸¶¨ÊıÁ¿ÌâÄ¿¡¢¼ÆËãÄ³ÌâµÄ½á¹û¡¢µÃµ½Ä³µÀÌâÄ¿µÄ×Ö·û´®
+//åŒ…å«åµŒå¥—ç±»QuestionGeneratorå’ŒQuestionCalculator
+//ç”¨æ¥è®¾ç½®å‚æ•°ã€ç”ŸæˆæŒ‡å®šæ•°é‡é¢˜ç›®ã€è®¡ç®—æŸé¢˜çš„ç»“æœã€å¾—åˆ°æŸé“é¢˜ç›®çš„å­—ç¬¦ä¸²
 //
 class Question {
 private:
-  //QuestionÀàµÄÇ¶Ì×Àà£¬¸´ºÏ¾ÛºÏ¹ØÏµ£¬°üº¬ÁËÉú³É¹ı³Ì¾ßÌåÊµÏÖ
+  //Questionç±»çš„åµŒå¥—ç±»ï¼Œå¤åˆèšåˆå…³ç³»ï¼ŒåŒ…å«äº†ç”Ÿæˆè¿‡ç¨‹å…·ä½“å®ç°
   class QuestionGenerator; 
-  //QuestionÀàµÄÇ¶Ì×Àà£¬¸´ºÏ¾ÛºÏ¹ØÏµ£¬°üº¬ÁË¼ÆËãÌâÄ¿¹ı³Ì¾ßÌåÊµÏÖ
+  //Questionç±»çš„åµŒå¥—ç±»ï¼Œå¤åˆèšåˆå…³ç³»ï¼ŒåŒ…å«äº†è®¡ç®—é¢˜ç›®è¿‡ç¨‹å…·ä½“å®ç°
   class QuestionCalculator;
 public:
-  //±íÊ¾ÌâÄ¿ÀàĞÍ£¬ÕûÊı/·ÖÊı/ÕûÊı·ÖÊı»ìºÏ
+  //è¡¨ç¤ºé¢˜ç›®ç±»å‹ï¼Œæ•´æ•°/åˆ†æ•°/æ•´æ•°åˆ†æ•°æ··åˆ
   enum NumberType {  
     ALL_INTEGER = 1,
     ALL_FRACTION,
@@ -27,59 +27,57 @@ public:
   };
 
 public:
-  //³õÊ¼»¯³ÉÔ±±äÁ¿
+  //åˆå§‹åŒ–æˆå‘˜å˜é‡
   Question();
-  //ÉèÖÃÉú³ÉµÄÎÊÌâÀàĞÍ£¬ÕûÊı/·ÖÊı£¬´ø²»´ø³Ë·½
+  //è®¾ç½®ç”Ÿæˆçš„é—®é¢˜ç±»å‹ï¼Œæ•´æ•°/åˆ†æ•°ï¼Œå¸¦ä¸å¸¦ä¹˜æ–¹
   int SetType(enum NumberType number_type, bool if_pow_operator);
-  //Éú³ÉÖ¸¶¨ÊıÁ¿µÄ²»Í¬µÄÌâ£¬²¢±£´æµ½ÎÄ¼ş
+  //ç”ŸæˆæŒ‡å®šæ•°é‡çš„ä¸åŒçš„é¢˜ï¼Œå¹¶ä¿å­˜åˆ°æ–‡ä»¶
   int GenerateAndSave(int amount);  
-  //¼ÆËã±í´ïÊ½Öµ
+  //è®¡ç®—è¡¨è¾¾å¼å€¼
   Fraction Calculate(int index);
-  //·µ»ØÄ³ÌâµÄ×Ö·û´®Öµ
+  //è¿”å›æŸé¢˜çš„å­—ç¬¦ä¸²å€¼
   string GetQuestion(int index);
 
 private:
-  //ÖĞ×º±í´ïÊ½£¬´øÀ¨ºÅ£¬ÊıºÍÔËËã·û¼äÓĞ¿Õ¸ñ
+  //ä¸­ç¼€è¡¨è¾¾å¼ï¼Œå¸¦æ‹¬å·ï¼Œæ•°å’Œè¿ç®—ç¬¦é—´æœ‰ç©ºæ ¼
   std::string question_str[1005];
-  //ºó×º±í´ïÊ½£¬ÊıºÍÔËËã·û¼äÓĞ¿Õ¸ñ
+  //åç¼€è¡¨è¾¾å¼ï¼Œæ•°å’Œè¿ç®—ç¬¦é—´æœ‰ç©ºæ ¼
   std::string postfix_expression[1005];
-  //ÒÑÓĞÌâÄ¿µÄÊıÁ¿
+  //å·²æœ‰é¢˜ç›®çš„æ•°é‡
   int amount;
-  //½á¹û£¬ÓÃ·ÖÊı±íÊ¾
+  //ç»“æœï¼Œç”¨åˆ†æ•°è¡¨ç¤º
   Fraction results[1005];
-  //ÕûÊı/·ÖÊı/ÕûÊı·ÖÊı»ìºÏ
+  //æ•´æ•°/åˆ†æ•°/æ•´æ•°åˆ†æ•°æ··åˆ
   enum NumberType number_type;
-  //´ø²»´ø³Ë·½
+  //å¸¦ä¸å¸¦ä¹˜æ–¹
   bool if_pow_operator;
 };
 
 //
-//ÓÃÀ´Éú³ÉÒ»¸ö²»ÖØ¸´µÄÌâÄ¿
+//ç”¨æ¥ç”Ÿæˆä¸€ä¸ªä¸é‡å¤çš„é¢˜ç›®
 //
 class Question::QuestionGenerator {
 public:
-  //Éú³ÉÒ»¸ö£¬´æÔÚQuestionÀàÀï£¬ĞèÒª·ÃÎÊQuestionÀàµÄË½ÓĞ²¿·Ö
+  //ç”Ÿæˆä¸€ä¸ªï¼Œå­˜åœ¨Questionç±»é‡Œï¼Œéœ€è¦è®¿é—®Questionç±»çš„ç§æœ‰éƒ¨åˆ†
   int GenerateOne(Question &question);  
 private:
-  int Random(int x, int y);
-  //´Ë´¦°üº¬¾ßÌåÊµÏÖ¹ı³Ì£º
-  //Ëæ»úÉú³ÉÒ»¸ö£¨£©
-  //ÅĞ¶ÏºÍÖ®Ç°µÄËùÓĞÊÇ·ñÖØ¸´£¨£©
+  //ç”Ÿæˆä¸€ä¸ªè¿ç®—ç¬¦ 
+	char operate_char();
 };
 
 //
-//¸ù¾İindex£¬¼ÆËã¸ÃÌâÄ¿µÄÖµ£¬ÒÔ·ÖÊı·½Ê½·µ»Ø
+//æ ¹æ®indexï¼Œè®¡ç®—è¯¥é¢˜ç›®çš„å€¼ï¼Œä»¥åˆ†æ•°æ–¹å¼è¿”å›
 //
 class Question::QuestionCalculator {
 public:
-  //¸ù¾İindex¼ÆËãÖµ
+  //æ ¹æ®indexè®¡ç®—å€¼
   Fraction Calculate(int index, Question &question);
 private:
-  //Éú³Éºó×º±í´ïÊ½£¨£©
+  //ç”Ÿæˆåç¼€è¡¨è¾¾å¼ï¼ˆï¼‰
 	string PostfixExpressionGenerate(string ques);
-  //¼ÆËã£¨£©
+  //è®¡ç®—ï¼ˆï¼‰
 	Fraction cal(Fraction a, Fraction b, char x);
-  //ÓÅÏÈ¼¶ÅĞ¶Ï
+  //ä¼˜å…ˆçº§åˆ¤æ–­
 	int lev(char c);
 };
 
