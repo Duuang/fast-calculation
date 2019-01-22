@@ -54,6 +54,7 @@ char Question::QuestionGenerator::operate_char()
     (question.question_str + question.amount)->append(question);
   question.amount++;
   return 1;
+	 
 
     
  }
