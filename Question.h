@@ -3,16 +3,24 @@
 #include <string>
 using namespace std;
 
-#define private public			//test
+
+//----------------------------------------------------
+#define private public
+//----------------------------------------------------
+
 //
 //包含嵌套类QuestionGenerator和QuestionCalculator
-//用来设置参数、生成指定数量题目、计算某题的结果
+//用来设置参数、生成指定数量题目、计算某题的结果、得到某道题目的字符串
 //
 class Question {
 private:
-  class QuestionGenerator; //这俩类是Question类的嵌套类，复合聚合关系,能直接访问Question类的私有部分
+  //Question类的嵌套类，复合聚合关系，包含了生成过程具体实现
+  class QuestionGenerator; 
+  //Question类的嵌套类，复合聚合关系，包含了计算题目过程具体实现
   class QuestionCalculator;
-  enum NumberType {  //表示整数/分数/整数分数混合
+public:
+  //表示题目类型，整数/分数/整数分数混合
+  enum NumberType {  
     ALL_INTEGER = 1,
     ALL_FRACTION,
     INTEGER_AND_FRACTION
@@ -22,14 +30,16 @@ public:
   //初始化成员变量
   Question();
   //设置生成的问题类型，整数/分数，带不带乘方
-  int SetType(enum NumberType number_type, bool if_pow_calculator);
-  //生成指定数量的不同的题，保存到文件
+  int SetType(enum NumberType number_type, bool if_pow_operator);
+  //生成指定数量的不同的题，并保存到文件
   int GenerateAndSave(int amount);  
   //计算表达式值
   Fraction Calculate(int index);
+  //返回某题的字符串值
+  string GetQuestion(int index);
 
 private:
-  //正常表达式，带括号，数和运算符间有空格
+  //中缀表达式，带括号，数和运算符间有空格
   std::string question_str[1005];
   //后缀表达式，数和运算符间有空格
   std::string postfix_expression[1005];
@@ -49,9 +59,10 @@ private:
 class Question::QuestionGenerator {
 public:
   //生成一个，存在Question类里，需要访问Question类的私有部分
-  int Generate(Question &question);  
+  int GenerateOne(Question &question);  
 private:
   int Random(int x, int y);
+  //此处包含具体实现过程：
   //随机生成一个（）
   //判断和之前的所有是否重复（）
 };
@@ -65,7 +76,6 @@ public:
   Fraction Calculate(int index, Question &question);
 private:
   //生成后缀表达式（）
-	
 	string PostfixExpressionGenerate(string ques);
   //计算（）
 	Fraction cal(Fraction a, Fraction b, char x);
