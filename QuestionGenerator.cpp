@@ -7,35 +7,53 @@
 
 using namespace std;
 
-//
-//生成一道题目，存进Question类
-//
-int Question::QuestionGenerator::Generate(Question &question) {
-  int a = Random(1, 100);
-  int b = Random(1, 100);
-  int operator_number = Random(1, 4);
-  string generated_question = "";
-  char tmpchar[105];
-  sprintf_s(tmpchar, "%d", a);
-  generated_question += tmpchar;
-  generated_question += " ";
-  char operators[5] = {'\0', '+', '-', '*', '/'};
-  generated_question.push_back(operators[operator_number]);
-  generated_question += " ";
-  sprintf_s(tmpchar, "%d", b);
-  generated_question += tmpchar;
-  (question.question_str + question.amount)->append(generated_question);
+char Question::QuestionGenerator::operate_char()
+{
+	 char symbol[1];
+	 int j;
+	 j=rand()%4;
+	 if(j==0) symbol[0]='+';
+    else if(j==1) symbol[0]='-';
+    else if(j==2) symbol[0]='*';
+    else symbol[0]='/';
+    return symbol[0];
+ } 
+ int Question::QuestionGenerator::Generate()
+ {
+ 	string question;
+ 	string operate_num1;
+ 	string operate_num2;
+ 	char symbol;
+ 	
+	int operate_number=rand()%9+2;
+ 	int num1=rand()%99+1;
+    int num2=rand()%99+1;
+    symbol=operate_char();
+    char zhuanhuan[100];
+    itoa(num1,zhuanhuan,10);
+    operate_num1=zhuanhuan;
+    itoa(num2,zhuanhuan,10);
+    operate_num2=zhuanhuan;
+    question=operate_num1+' '+symbol+' '+operate_num2;
+    if(operate_number>2)
+    {
+    	for(;operate_number>2;operate_number--)
+    	{
+    		symbol=operate_char();
+    		num2=rand()%99+1;
+    		itoa(num2,zhuanhuan,10);
+    		operate_num2=zhuanhuan;
+    		operate_num1=question;
+    		int bracket=rand()%3;
+    		if(bracket==2)
+    		operate_num1='('+operate_num1+')';
+    		question=operate_num1+' '+symbol+' '+operate_num2;
+    		
+		}
+	}
+    (question.question_str + question.amount)->append(question);
   question.amount++;
   return 1;
 
-}
-
-//
-//生成一个 [x, y] 的随机整数
-//
-int Question::QuestionGenerator::Random(int x, int y) {
-  std::random_device rd;
-  std::minstd_rand rng{ rd() };
-  std::uniform_int_distribution<long> dist{ x, y };
-  return dist(rng);
-}
+    
+ }
