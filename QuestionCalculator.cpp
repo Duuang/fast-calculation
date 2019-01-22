@@ -97,7 +97,7 @@ string Question::QuestionCalculator::PostfixExpressionGenerate(string ques)
 							pos_ques = pos_ques + symstack.top() + ' ';
 							symstack.pop();
 							if (symstack.empty()) break;
-							else l2 = symstack.top();
+							else l2 = lev(symstack.top());
 						}
 						symstack.push(ques[i]);
 					}
