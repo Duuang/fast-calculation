@@ -3,11 +3,6 @@
 #include <string>
 using namespace std;
 
-
-//----------------------------------------------------
-#define private public
-//----------------------------------------------------
-
 //
 //包含嵌套类QuestionGenerator和QuestionCalculator
 //用来设置参数、生成指定数量题目、计算某题的结果、得到某道题目的字符串
@@ -15,24 +10,30 @@ using namespace std;
 class Question {
 private:
   //Question类的嵌套类，复合聚合关系，包含了生成过程具体实现
-  class QuestionGenerator; 
+  class QuestionGenerator;
   //Question类的嵌套类，复合聚合关系，包含了计算题目过程具体实现
   class QuestionCalculator;
 public:
   //表示题目类型，整数/分数/整数分数混合
-  enum NumberType {  
+  enum NumberType {
     ALL_INTEGER = 1,
     ALL_FRACTION,
     INTEGER_AND_FRACTION
+  };
+  //有无乘方、乘方用什么表示
+  enum IfPowOperator {
+    NONE,
+    OPERATOR_1,  //用^表示
+    OPERATOR_2   //用**表示
   };
 
 public:
   //初始化成员变量
   Question();
   //设置生成的问题类型，整数/分数，带不带乘方
-  int SetType(enum NumberType number_type, bool if_pow_operator);
+  int SetType(enum NumberType number_type, enum IfPowOperator if_pow_operator);
   //生成指定数量的不同的题，并保存到文件
-  int GenerateAndSave(int amount);  
+  int GenerateAndSave(int amount);
   //计算表达式值
   Fraction Calculate(int index);
   //返回某题的字符串值
@@ -50,7 +51,7 @@ private:
   //整数/分数/整数分数混合
   enum NumberType number_type;
   //带不带乘方
-  bool if_pow_operator;
+  enum IfPowOperator if_pow_operator;
 };
 
 //
@@ -59,9 +60,9 @@ private:
 class Question::QuestionGenerator {
 public:
   //生成一个，存在Question类里，需要访问Question类的私有部分
-  int GenerateOne(Question &question);  
+  int GenerateOne(Question &question);
 private:
-  //生成一个运算符 
+  //生成一个运算符
 	char operate_char();
 };
 
