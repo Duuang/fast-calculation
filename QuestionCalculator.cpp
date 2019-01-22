@@ -45,6 +45,23 @@ Fraction Question::QuestionCalculator::cal(Fraction a, Fraction b, char x)
 
 string Question::QuestionCalculator::PostfixExpressionGenerate(string ques)
 {
+	int j = 0;
+	string temp;
+	while (ques[j] != '\0')
+	{
+		if (ques[j] == '*')
+		{
+			if (ques[j + 1] == '*')
+			{
+				temp = temp + '^';
+				j += 2;
+				continue;
+			}
+		}
+		temp = temp + ques[j];
+		j++;
+	}
+	ques = temp;
 	int i = 0;
 	string pos_ques;
 	stack<char> symstack;
@@ -69,7 +86,7 @@ string Question::QuestionCalculator::PostfixExpressionGenerate(string ques)
 				pos_ques = pos_ques + ques[i];
 			}
 		}
-		if(ques[i] == '(' || ques[i] == ')' || ques[i] == '+' || ques[i] == '-' || ques[i] == '*' || (ques[i] == '/' && (ques[i + 1] < '0' || ques[i + 1] > '9')) ) 
+		if(ques[i] == '(' || ques[i] == ')' || ques[i] == '^' || ques[i] == '+' || ques[i] == '-' || ques[i] == '*' || (ques[i] == '/' && (ques[i + 1] < '0' || ques[i + 1] > '9')) ) 
 		{
 			if (symstack.empty())
 				symstack.push(ques[i]);
