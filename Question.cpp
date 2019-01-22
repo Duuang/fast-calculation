@@ -13,6 +13,7 @@ Question::Question() {
 int Question::SetType(enum NumberType number_type, bool if_pow_operator) {
   this->number_type = number_type;
   this->if_pow_operator = if_pow_operator;
+  return 0;
 }
 
 //
@@ -24,7 +25,7 @@ int Question::GenerateAndSave(int amount) {
   for (int i = 0; i < amount; i++) {
     generator.GenerateOne(*this);
   }
-  return 1;
+  return 0;
 }
 
 //
