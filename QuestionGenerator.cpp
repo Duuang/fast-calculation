@@ -228,6 +228,8 @@ char Question::QuestionGenerator::operate_char()
 
 	 }//else 
 
+
+
     
  }
 
