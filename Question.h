@@ -63,7 +63,9 @@ public:
   int GenerateOne(Question &question);
 private:
   //生成一个运算符
-	char operate_char();
+  string operate_char(enum IfPowOperator n);
+  //生成随机数
+  int Random(int x, int y);
 };
 
 //
