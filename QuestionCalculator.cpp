@@ -75,7 +75,7 @@ string Question::QuestionCalculator::PostfixExpressionGenerate(string ques)
 				pos_ques = pos_ques + ques[i];
 				i++;
 			}
-			if (ques[i] == ' ' || ques[i] == '\0')
+			if (ques[i] == ' ' || ques[i] == '\0' || ques[i] == ')')
 			{
 				pos_ques = pos_ques + ' ';
 				if (ques[i] == '\0')
@@ -188,8 +188,8 @@ Fraction Question::QuestionCalculator::Calculate(int index, Question &question) 
 	Fraction sim_value(value.Simplify());
 
 	//写入文件
-	fstream fileout;
-	fileout.open("c:\\users\\10346\\Desktop\\TheResult");
+//	fstream fileout;
+//	fileout.open("c:\\users\\10346\\Desktop\\TheResult");
 /*	if (sim_value.IsInteger() == true)
 	{
 		fileout << "题目" << index << "的答案是" << sim_value.GetNumerator() << endl;
