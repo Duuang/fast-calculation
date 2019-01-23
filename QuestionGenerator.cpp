@@ -21,7 +21,7 @@ string  Question::QuestionGenerator::operate_char(enum IfPowOperator n)
   if (n == NONE)
     num = 4;
   else
-    num = 9;
+    num = 14;
 
   j = Random(0, num - 1);
   if (j / 2 == 0)
@@ -51,9 +51,21 @@ int Question::QuestionGenerator::GenerateOne(Question &question)
 
     int operate_number = Random(2, 5);
     int num1 = Random(1, 20);
-    int num2 = Random(1, 20);
+	int num2;
+    
     symbol = operate_char(question.if_pow_operator);
-
+	string OPERATE1, OPERATE2;
+	OPERATE1 = '^';
+	OPERATE2 = "**";
+	if (symbol == OPERATE1 || symbol == OPERATE2)
+	{
+		 num2 = Random(2, 10);
+		
+	}
+	else
+	{
+		num2 = Random(1, 20);
+	}
 
     char zhuanhuan[100];
     _itoa_s(num1, zhuanhuan, 10);
@@ -64,10 +76,21 @@ int Question::QuestionGenerator::GenerateOne(Question &question)
 
     if (operate_number > 2)
     {
-      for (; operate_number > 2; operate_number--)
+      for (int count= operate_number;count > 2; count--)
       {
         symbol = operate_char(question.if_pow_operator);
-        num2 = Random(1, 30);
+		string OPERATE1, OPERATE2;
+		OPERATE1 = '^';
+		OPERATE2 = "**";
+		if (symbol == OPERATE1 || symbol == OPERATE2)
+		{
+			num2 = Random(2, 10);
+
+		}
+		else
+		{
+			num2 = Random(1, 20);
+		}
         _itoa_s(num2, zhuanhuan, 10);
         operate_num2 = zhuanhuan;
         operate_num1 = questions;
@@ -78,6 +101,7 @@ int Question::QuestionGenerator::GenerateOne(Question &question)
 
       }
     }
+	
 
     //----------------更改部分-----------------------------------------------------------
     //判断是否重复,且判断运算过程是否有太大的数出现
@@ -92,12 +116,15 @@ int Question::QuestionGenerator::GenerateOne(Question &question)
 
   } else if (question.number_type == ALL_FRACTION)			//纯小数
   {
-    string questions;
+	  string operate_fraction1;
+	  string operate_fraction2 ;
+	  string questions;
     int numerator;
     int denominator;
     int operate_number = Random(2, 5);
 
     Fraction fraction1;
+	Fraction fraction2;
     numerator = Random(1, 10);
     denominator = Random(1, 10);
     while (1) {
@@ -113,49 +140,73 @@ int Question::QuestionGenerator::GenerateOne(Question &question)
       denominator = buffer;
     }
     fraction1.Set(numerator, denominator);
+	operate_fraction1 = fraction1.ToString();
 
-    Fraction fraction2;
-    numerator = Random(1, 10);
-    denominator = Random(1, 10);
-    while (1) {
-			 if (numerator == denominator)
-				 denominator = Random(1, 10);
-			 else
-				 break;
-		 }
-    if (numerator > denominator)
-    {
-      int buffer = numerator;
-      numerator = denominator;
-      denominator = buffer;
-    }
-    fraction2.Set(numerator, denominator);
-
-    string symbol = operate_char(question.if_pow_operator);
-    string operate_fraction1 = fraction1.ToString();
-    string operate_fraction2 = fraction2.ToString();
+	string symbol = operate_char(question.if_pow_operator);
+	string OPERATE1, OPERATE2;
+	OPERATE1 = '^';
+	OPERATE2 = "**";
+	if (symbol == OPERATE1 || symbol == OPERATE2)
+	{
+		int num2 = Random(2, 10);
+		char zhuanhuan[100];
+		_itoa_s(num2, zhuanhuan, 10);
+		operate_fraction2 = zhuanhuan;
+	}
+	else {
+		numerator = Random(1, 10);
+		denominator = Random(1, 10);
+		while (1) {
+			if (numerator == denominator)
+				denominator = Random(1, 10);
+			else
+				break;
+		}
+		if (numerator > denominator)
+		{
+			int buffer = numerator;
+			numerator = denominator;
+			denominator = buffer;
+		}
+		fraction2.Set(numerator, denominator);
+		operate_fraction2 = fraction2.ToString();
+	}
+   
     questions = operate_fraction1 + ' ' + symbol + ' ' + operate_fraction2;
     if (operate_number > 2)
     {
       for (; operate_number > 2; operate_number--)
       {
         symbol = operate_char(question.if_pow_operator);
-        numerator = Random(1, 10);
-        denominator = Random(1, 10);
-        while (1) {
-			 		if (numerator == denominator)
-				 		denominator = Random(1, 10);
-			 		else
-				 		break;
-		 			}
-        if (numerator > denominator)
-        {
-          int buffer = numerator;
-          numerator = denominator;
-          denominator = buffer;
-        }
-        fraction2.Set(numerator, denominator);
-        operate_fraction2 = fraction2.ToString();
+		string OPERATE1, OPERATE2;
+		OPERATE1 = '^';
+		OPERATE2 = "**";
+		if (symbol == OPERATE1 || symbol == OPERATE2)
+		{
+			int num2 = Random(2, 10);
+			char zhuanhuan[100];
+			_itoa_s(num2, zhuanhuan, 10);
+			operate_fraction2 = zhuanhuan;
+		}
+		else
+		{
+			numerator = Random(1, 10);
+			denominator = Random(1, 10);
+			while (1) {
+				if (numerator == denominator)
+					denominator = Random(1, 10);
+				else
+					break;
+			}
+			if (numerator > denominator)
+			{
+				int buffer = numerator;
+				numerator = denominator;
+				denominator = buffer;
+			}
+			fraction2.Set(numerator, denominator);
+			operate_fraction2 = fraction2.ToString();
+		}
         operate_fraction1 = questions;
         int bracket = Random(0, 2);
         if (bracket == 2)
@@ -207,33 +258,45 @@ int Question::QuestionGenerator::GenerateOne(Question &question)
       fraction.Set(numerator, denominator);
       operate1 = fraction.ToString();
     }
+	symbol = operate_char(question.if_pow_operator);
+	string OPERATE1, OPERATE2;
+	OPERATE1 = '^';
+	OPERATE2 = "**";
+	if (symbol == OPERATE1 || symbol == OPERATE2)
+	{
+		int num2 = Random(2, 10);
+		char zhuanhuan[100];
+		_itoa_s(num2, zhuanhuan, 10);
+		operate2 = zhuanhuan;
+	}
+	else
+	{
+		flag = Random(0, 1);
+		if (flag == 0)
+		{
+			int num;
+			num = Random(1, 20);
+			char zhuanhuan[100];
+			_itoa_s(num, zhuanhuan, 10);
+			operate2 = zhuanhuan;
 
+		}
+		else
+		{
+			Fraction fraction;
+			int numerator = Random(1, 10);
+			int denominator = Random(1, 10);
+			if (numerator > denominator)
+			{
+				int buffer = numerator;
+				numerator = denominator;
+				denominator = buffer;
+			}
+			fraction.Set(numerator, denominator);
+			operate2 = fraction.ToString();
+		}
+	}
 
-    flag = Random(0, 1);
-    if (flag == 0)
-    {
-      int num;
-      num = Random(1, 20);
-      char zhuanhuan[100];
-      _itoa_s(num, zhuanhuan, 10);
-      operate2 = zhuanhuan;
-
-    } else
-    {
-      Fraction fraction;
-      int numerator = Random(1, 10);
-      int denominator = Random(1, 10);
-      if (numerator > denominator)
-      {
-        int buffer = numerator;
-        numerator = denominator;
-        denominator = buffer;
-      }
-      fraction.Set(numerator, denominator);
-      operate2 = fraction.ToString();
-    }
-
-    symbol = operate_char(question.if_pow_operator);
     questions = operate1 + ' ' + symbol + ' ' + operate2;
 
     if (operate_number > 2)
@@ -241,29 +304,43 @@ int Question::QuestionGenerator::GenerateOne(Question &question)
       for (; operate_number > 2; operate_number--)
       {
         symbol = operate_char(question.if_pow_operator);
-        flag = Random(0, 1);
-        if (flag == 0)
-        {
-          int num;
-          num = Random(1, 20);
-          char zhuanhuan[100];
-          _itoa_s(num, zhuanhuan, 10);
-          operate2 = zhuanhuan;
+		string OPERATE1, OPERATE2;
+		OPERATE1 = '^';
+		OPERATE2 = "**";
+		if (symbol == OPERATE1 || symbol == OPERATE2)
+		{
+			int num2 = Random(2, 10);
+			char zhuanhuan[100];
+			_itoa_s(num2, zhuanhuan, 10);
+			operate2 = zhuanhuan;
+		}
+		else
+		{
+			flag = Random(0, 1);
+			if (flag == 0)
+			{
+				int num;
+				num = Random(1, 20);
+				char zhuanhuan[100];
+				_itoa_s(num, zhuanhuan, 10);
+				operate2 = zhuanhuan;
 
-        } else
-        {
-          Fraction fraction;
-          int numerator = Random(1, 10);
-          int denominator = Random(1, 10);
-          if (numerator > denominator)
-          {
-            int buffer = numerator;
-            numerator = denominator;
-            denominator = buffer;
-          }
-          fraction.Set(numerator, denominator);
-          operate2 = fraction.ToString();
-        }
+			}
+			else
+			{
+				Fraction fraction;
+				int numerator = Random(1, 10);
+				int denominator = Random(1, 10);
+				if (numerator > denominator)
+				{
+					int buffer = numerator;
+					numerator = denominator;
+					denominator = buffer;
+				}
+				fraction.Set(numerator, denominator);
+				operate2 = fraction.ToString();
+			}
+		}
         operate1 = questions;
         int bracket = Random(0, 2);
         if (bracket == 2)
@@ -282,7 +359,7 @@ int Question::QuestionGenerator::GenerateOne(Question &question)
     question.amount++;
     return 1;
 
-  }//else
+  }//else混合
 }
 
 
@@ -383,8 +460,8 @@ bool Question::QuestionGenerator::IfTooHard(Question &question) {
 
   for (int i = 0; i < question.intermediate_result_amount[question.amount]; i++) {
     if (question.intermediate_result[question.amount][i].GetNumerator() == -1
-      || question.intermediate_result[question.amount][i].GetNumerator() > 200
-      || question.intermediate_result[question.amount][i].GetDenominator() > 200) {
+      || question.intermediate_result[question.amount][i].GetNumerator() > 300
+      || question.intermediate_result[question.amount][i].GetDenominator() > 300) {
       return true;
     }
 
