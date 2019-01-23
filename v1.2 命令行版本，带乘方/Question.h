@@ -2,7 +2,7 @@
 #include "Fraction.h"
 #include <string>
 using namespace std;
-#define private public
+
 
 //
 //包含嵌套类QuestionGenerator和QuestionCalculator
@@ -66,6 +66,7 @@ private:
 //
 class Question::QuestionCalculator {
 public:
+friend class Question::QuestionGenerator;
   //根据index计算值
   Fraction Calculate(int index, Question &question);
 private:
@@ -82,6 +83,7 @@ private:
 //
 class Question::QuestionGenerator {
 public:
+
   //生成一个，存在Question类里，需要访问Question类的私有部分
   int GenerateOne(Question &question);
 private:
