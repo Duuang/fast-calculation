@@ -19,7 +19,7 @@ string  Question::QuestionGenerator::operate_char(enum IfPowOperator n)
   string symbol;
   int j, num;
   if (n == NONE)
-    num = 4;
+    num = 8;
   else
     num = 14;
 
