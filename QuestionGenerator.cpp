@@ -38,6 +38,7 @@ string  Question::QuestionGenerator::operate_char(enum IfPowOperator n)
     symbol = "**";
   return symbol;
 }
+
 int Question::QuestionGenerator::GenerateOne(Question &question)
 {
   if (question.number_type == ALL_INTEGER)		//纯整数
@@ -52,6 +53,7 @@ int Question::QuestionGenerator::GenerateOne(Question &question)
     int num1 = Random(1, 20);
     int num2 = Random(1, 20);
     symbol = operate_char(question.if_pow_operator);
+
 
     char zhuanhuan[100];
     _itoa_s(num1, zhuanhuan, 10);
@@ -168,7 +170,7 @@ int Question::QuestionGenerator::GenerateOne(Question &question)
       return -1;
     }
     //---------------------------------------------------------------------------
-    
+
     (question.question_str + question.amount)->append(questions);
     question.amount++;
     return 1;
@@ -279,7 +281,7 @@ int Question::QuestionGenerator::GenerateOne(Question &question)
     question.amount++;
     return 1;
 
-  }//else     
+  }//else
 }
 
 
@@ -287,7 +289,7 @@ int Question::QuestionGenerator::GenerateOne(Question &question)
 ////判断是否和之前某题一样
 //
 bool Question::QuestionGenerator::IfSame(Question &question, string question_str) {
-  
+
   Question::QuestionCalculator tmp;
   //调用友元函数，生成后缀表达式，并保存
   question.postfix_expression[question.amount] = tmp.PostfixExpressionGenerate(question_str);
@@ -339,7 +341,7 @@ bool Question::QuestionGenerator::IfSame(Question &question, string question_str
   opestack.pop();
   question.results[question.amount] = value;
   question.intermediate_result[question.amount][question.intermediate_result_amount[question.amount]++] = value;
-  
+
   //对之前的每个问题，看中间结果是否符合此问题的中间结果
   bool iffirsttime = true; //如果是最后栈顶的那个数
   for (int i = 0; i < question.amount; i++) {
@@ -377,14 +379,14 @@ bool Question::QuestionGenerator::IfSame(Question &question, string question_str
 //判断某题是否过难（出现负数、分子或分母运算过程中>200）
 //
 bool Question::QuestionGenerator::IfTooHard(Question &question) {
-  
+
   for (int i = 0; i < question.intermediate_result_amount[question.amount]; i++) {
     if (question.intermediate_result[question.amount][i].GetNumerator() == -1
       || question.intermediate_result[question.amount][i].GetNumerator() > 200
       || question.intermediate_result[question.amount][i].GetDenominator() > 200) {
       return true;
     }
-    
+
   }
   return false;
 }
