@@ -138,6 +138,7 @@ Fraction Question::QuestionCalculator::Calculate(int index, Question &question) 
 
 	//中缀转后缀
 	pos_ques = PostfixExpressionGenerate(ques);
+  question.postfix_expression[index] = pos_ques;
 	int i = 0;
 
 	//根据后缀表达式求解

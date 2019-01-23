@@ -23,8 +23,11 @@ int Question::GenerateAndSave(int amount) {
   //生成amount道题
   Question::QuestionGenerator generator;
   //调用QuestionGenerator类的Generate()
-  for (int i = 0; i < amount; i++) {
+  for (int i = 0; ; i++) {
     generator.GenerateOne(*this);
+    if (this->amount == amount) {
+      break;
+    }
   }
   //保存到文件
   FILE *fp;
@@ -35,7 +38,7 @@ int Question::GenerateAndSave(int amount) {
     return -1;
   }
   for (int i = 0; i < amount; i++) {
-    fputs(question_str[i].data(), fp);
+    fputs((question_str[i] + "\n").data(), fp);
   }
   fclose(fp);
   return 0;

@@ -2,6 +2,7 @@
 #include "Fraction.h"
 #include <string>
 using namespace std;
+#define private public
 
 //
 //包含嵌套类QuestionGenerator和QuestionCalculator
@@ -44,6 +45,10 @@ private:
   std::string question_str[1005];
   //后缀表达式，数和运算符间有空格
   std::string postfix_expression[1005];
+  //保存中间结果，即为每个问题后缀表达式计算过程中出栈的数，若干对的数和最后栈顶的数
+  Fraction intermediate_result[1005][55];
+  //intermediate_result中结果的个数
+  int intermediate_result_amount[1005];
   //已有题目的数量
   int amount;
   //结果，用分数表示
@@ -54,19 +59,7 @@ private:
   enum IfPowOperator if_pow_operator;
 };
 
-//
-//用来生成一个不重复的题目
-//
-class Question::QuestionGenerator {
-public:
-  //生成一个，存在Question类里，需要访问Question类的私有部分
-  int GenerateOne(Question &question);
-private:
-  //生成一个运算符
-  string operate_char(enum IfPowOperator n);
-  //生成随机数
-  int Random(int x, int y);
-};
+
 
 //
 //根据index，计算该题目的值，以分数方式返回
@@ -84,3 +77,24 @@ private:
 	int lev(char c);
 };
 
+//
+//用来生成一个不重复的题目
+//
+class Question::QuestionGenerator {
+public:
+  //生成一个，存在Question类里，需要访问Question类的私有部分
+  int GenerateOne(Question &question);
+private:
+  //生成后缀表达式，Calculator类的友元函数
+  friend string Question::QuestionCalculator::PostfixExpressionGenerate(string ques);
+  friend Fraction Question::QuestionCalculator::cal(Fraction a, Fraction b, char x);
+  //判断是否和之前某题一样
+  bool IfSame(Question &question, string question_str);
+  //判断某题是否过难（出现负数、分子或分母运算过程中>200）
+  bool IfTooHard(Question &question);
+  
+  //生成一个运算符
+  string operate_char(enum IfPowOperator n);
+  //生成随机数
+  int Random(int x, int y);
+};

@@ -9,9 +9,16 @@ Fraction::Fraction() {
 }
 
 //
-//设置分子分母，自动设置isinteger_
+//设置分子分母，自动设置isinteger_，如果分数分子分母>10000或为负，直接返回-1/1
 //
 Fraction::Fraction(int numerator, int denominator) {
+  //如果分数分子分母太大或为负，直接返回-1
+  if (denominator > 10000 || numerator > 10000 || denominator <= 0 || numerator < 0) {
+      denominator_ = 1;
+      numerator_ = -1;
+      isinteger_ = true;
+      return;
+  }
   numerator_ = numerator;
   denominator_ = denominator;
   if (denominator == 1 || numerator == 0) {
@@ -23,9 +30,16 @@ Fraction::Fraction(int numerator, int denominator) {
 }
 
 //
-//设置分子分母，自动设置isinteger_
+//设置分子分母，自动设置isinteger_，如果分数分子分母>10000或为负，直接返回-1/1
 //
 void Fraction::Set(int numerator, int denominator) {
+  //如果分数分子分母太大或为负，直接返回-1
+  if (denominator > 10000 || numerator > 10000 || denominator <= 0 || numerator < 0) {
+      denominator_ = 1;
+      numerator_ = -1;
+      isinteger_ = true;
+      return;
+  }
   numerator_ = numerator;
   denominator_ = denominator;
   if (denominator == 1 || numerator == 0) {
@@ -37,9 +51,13 @@ void Fraction::Set(int numerator, int denominator) {
 }
 
 //
-//分数化简，直接更改原对象，并返回*this
+//分数化简，直接更改原对象，并返回*this，如果分数分子分母>10000或为负，直接返回-1/1
 //
 Fraction Fraction::Simplify() {
+  //如果分数分子分母太大或为负，直接返回-1
+  if (denominator_ > 10000 || numerator_ > 10000 || denominator_ <= 0 || numerator_ < 0) {
+      return Fraction(-1, 1);
+  }
   //如果分母是1，或者分子是0
   if (denominator_ == 1 || numerator_ == 0) {
     //分子是0，将分母改为1，整数标识改1
@@ -55,6 +73,7 @@ Fraction Fraction::Simplify() {
   //遍历小于分母的数，看能不能同时整除分子分母，直到没有这样的数，或者分母为1
   while (true) {
     int i;
+    
     int currentdenominator = denominator_;
     for (i = 2; i <= currentdenominator; i++) {
       if (numerator_ % i == 0 && denominator_ % i == 0) {
