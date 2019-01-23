@@ -80,7 +80,7 @@ string  Question::QuestionGenerator::operate_char(enum IfPowOperator n)
 		 return 1;
 
 	 }
-	 else if (question.number_type == ALL_FRACTION)			//纯小数
+	 else if (question.number_type == ALL_FRACTION)			//纯分数
 	 {
 		 string questions;
 		 int numerator;
@@ -90,12 +90,6 @@ string  Question::QuestionGenerator::operate_char(enum IfPowOperator n)
 		 Fraction fraction1;
 		 numerator = Random(1, 10);
 		 denominator = Random(1,10);
-		  while (1) {
-			 if (numerator == denominator)
-				 denominator = Random(1, 10);
-			 else
-				 break;
-		 }
 		 if (numerator > denominator)
 		 {
 			 int buffer = numerator;
@@ -107,12 +101,6 @@ string  Question::QuestionGenerator::operate_char(enum IfPowOperator n)
 		 Fraction fraction2;
 		 numerator = Random(1, 10);
 		 denominator = Random(1,10);
-		  while (1) {
-			 if (numerator == denominator)
-				 denominator = Random(1, 10);
-			 else
-				 break;
-		 }
 		 if (numerator > denominator)
 		 {
 			 int buffer = numerator;
@@ -132,12 +120,6 @@ string  Question::QuestionGenerator::operate_char(enum IfPowOperator n)
 				 symbol = operate_char(question.if_pow_operator);
 				 numerator = Random(1, 10);
 				 denominator = Random(1,10);
-				  while (1) {
-			 		if (numerator == denominator)
-				 		denominator = Random(1, 10);
-			 		else
-				 		break;
-		 			}
 				 if (numerator > denominator)
 				 {
 					 int buffer = numerator;
