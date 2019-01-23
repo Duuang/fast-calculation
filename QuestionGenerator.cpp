@@ -162,6 +162,7 @@ int Question::QuestionGenerator::GenerateOne(Question &question)
           operate_fraction1 = '(' + operate_fraction1 + ')';
         questions = operate_fraction1 + ' ' + symbol + ' ' + operate_fraction2;
 
+
       }
     }
     //----------------更改部分-----------------------------------------------------------
